@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MOKAMBO PARKING AUTO ONLINE - Vente de véhicules d'occasion au Congo">
+    <title>MOKAMBO PARKING AUTO ONLINE 🟢 | Véhicules d'Occasion</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">🟢</span>
+                <div class="logo-text">
+                    <h1>MOKAMBO PARKING</h1>
+                    <span class="logo-subtitle">AUTO ONLINE</span>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="active"><i class="fas fa-car"></i> Catalogue</a>
+                <a href="#" id="cartBtn" class="cart-nav-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cartCount" class="cart-badge">0</span>
+                </a>
+                <a href="login.html" class="admin-link"><i class="fas fa-lock"></i> Admin</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-banner">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <span class="hero-badge">🟢 En ligne 24/7</span>
+                <h2>Trouvez votre véhicule idéal</h2>
+                <p>Qualité, confiance et meilleurs prix garantis au Congo</p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Véhicules vérifiés</span>
+                    </div>
+                    <div class="hero-stat">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Transaction sécurisée</span>
+                    </div>
+                    <div class="hero-stat">
+                        <i class="fas fa-headset"></i>
+                        <span>Support 24/7</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Currency Selector -->
+    <div class="currency-bar">
+        <div class="container">
+            <div class="currency-bar-content">
+                <span class="currency-label"><i class="fas fa-globe"></i> Devise :</span>
+                <select id="currencySelect" onchange="changeDisplayCurrency()">
+                    <option value="USD">🇺🇸 Dollar ($)</option>
+                    <option value="CDF">🇨🇩 Franc Congolais (FC)</option>
+                </select>
+                <span class="contact-info">
+                    <i class="fas fa-phone"></i> +243 992 292 032
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="search-box">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Rechercher par marque, modèle, année..." oninput="searchItems()">
+                <button onclick="searchItems()" class="search-btn">Rechercher</button>
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterCategory('tous')"><i class="fas fa-th-large"></i> Tous</button>
+                <button class="filter-btn" onclick="filterCategory('voiture')"><i class="fas fa-car"></i> Voitures</button>
+                <button class="filter-btn" onclick="filterCategory('moto')"><i class="fas fa-motorcycle"></i> Motos</button>
+                <button class="filter-btn" onclick="filterCategory('autre')"><i class="fas fa-tools"></i> Autres</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalogue -->
+    <section class="catalogue-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Véhicules disponibles</h2>
+                <p>Découvrez notre sélection de véhicules d'occasion de qualité</p>
+            </div>
+            <div id="itemsGrid" class="items-grid"></div>
+            <div id="noResults" class="no-results" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h3>Aucun résultat trouvé</h3>
+                <p>Essayez de modifier vos critères de recherche</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Modal -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-header">
+                <i class="fas fa-shopping-cart modal-icon"></i>
+                <h2>Passer une commande</h2>
+            </div>
+            <div id="orderItemPreview" class="order-preview"></div>
+            <form id="orderForm">
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Nom complet *</label>
+                    <input type="text" id="customerName" required placeholder="Votre nom complet">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-phone"></i> Téléphone *</label>
+                    <input type="tel" id="customerPhone" required placeholder="+243 8XX XXX XXX">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> Email</label>
+                    <input type="email" id="customerEmail" placeholder="votre@email.com">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-map-marker-alt"></i> Adresse</label>
+                    <input type="text" id="customerAddress" placeholder="Votre adresse">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-comment"></i> Message</label>
+                    <textarea id="customerMessage" rows="3">Je suis intéressé(e) par ce véhicule. Merci de me contacter.</textarea>
+                </div>
+                <input type="hidden" id="selectedItemId">
+                <button type="submit" class="btn-submit-order">
+                    <i class="fas fa-paper-plane"></i> Envoyer la commande
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Cart Float -->
+    <div id="cartFloat" class="cart-float" onclick="showCartSummary()">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cartFloatCount">0</span>
+    </div>
+
+    <!-- Connection Status -->
+    <div class="connection-status" id="connectionStatus">
+        <span class="connection-dot"></span>
+        <span>Connecté - MàJ automatiques</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="footer-logo">🟢</span>
+                    <h3>MOKAMBO PARKING AUTO ONLINE</h3>
+                    <p>Votre partenaire de confiance pour l'achat de véhicules d'occasion au Congo</p>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-phone"></i> +243 992 292 032</p>
+                    <p><i class="fas fa-envelope"></i> mwansaestime@gmail.com</p>
+                </div>
+                <div class="footer-social">
+                    <h4>Suivez-nous</h4>
+                    <div class="social-links">
+                        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://t.me" target="_blank"><i class="fab fa-telegram"></i></a>
+                        <a href="https://wa.me/243992292032" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MOKAMBO PARKING AUTO ONLINE. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="currency.js"></script>
+    <script src="realtime.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
